@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>Nombre:</strong>
   <%= @idea.name %>
@@ -12,7 +10,7 @@
 
 <p>
   <strong>Imagen:</strong>
-  <%= image_tag(@idea.picture_url, :width => 600) if @idea.picture.present? %>
+  <td><%= image_tag idea.picture_url(:thumb), class: 'img-circle' if idea.picture? %></td>
 </p>
 
 <%= link_to 'Editar', edit_idea_path(@idea) %> |

@@ -20,7 +20,7 @@
         <td><%= idea.picture %></td>
         <td><%= link_to 'Mostrar', idea %></td>
         <td><%= link_to 'Editar', edit_idea_path(idea) %></td>
-        <td><%= link_to 'Eliminar', idea, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Eliminar', idea, method: :delete, data: { confirm: 'Seguro de querer eliminar?' } %></td>
       </tr>
     <% end %>
   </tbody>
