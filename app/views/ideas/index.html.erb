@@ -17,8 +17,14 @@
         <td><%= idea.description %></td>
         <td><%= idea.picture %></td>
         <td><%= link_to 'Mostrar', idea %></td>
+        <% if current_user.ideas.include? idea %>
         <td><%= link_to 'Editar', edit_idea_path(idea) %></td>
         <td><%= link_to 'Eliminar', idea, method: :delete, data: { confirm: 'Seguro de querer eliminar?' } %></td>
+        <% else %>
+        <td></td>
+        <td></td>
+        <% end %>
+
       </tr>
     <% end %>
   </tbody>

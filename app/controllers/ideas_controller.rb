@@ -1,4 +1,5 @@
 class IdeasController < ApplicationController
+  before_action :authenticate_user!, except: [:show, :index]
   before_action :set_idea, only: [:show, :edit, :update, :destroy]
 
   # GET /ideas
@@ -19,12 +20,17 @@ class IdeasController < ApplicationController
 
   # GET /ideas/1/edit
   def edit
+    @idea = current_user.ideas.find_by_id(params[:id])
+    if @idea.nil?
+      redirect_to ideas_path, flash: {alert: 'No existe la idea que desea modificar'}
+    end
   end
 
   # POST /ideas
   # POST /ideas.json
   def create
     @idea = Idea.new(idea_params)
+    @idea.user = current_user
 
     respond_to do |format|
       if @idea.save
@@ -40,6 +46,8 @@ class IdeasController < ApplicationController
   # PATCH/PUT /ideas/1
   # PATCH/PUT /ideas/1.json
   def update
+    @idea = current_user.ideas.find_by_id(params[:id])
+
     respond_to do |format|
       if @idea.update(idea_params)
         format.html { redirect_to @idea, notice: 'Idea was successfully updated.' }
@@ -54,6 +62,11 @@ class IdeasController < ApplicationController
   # DELETE /ideas/1
   # DELETE /ideas/1.json
   def destroy
+    @idea = current_user.ideas.find_by_id(params[:id])
+    if @idea.nil?
+      redirect_to ideas_path, flash: {alert: 'No existe la idea que desea modificar'}
+      return
+    end
     @idea.destroy
     respond_to do |format|
       format.html { redirect_to ideas_url, notice: 'Idea was successfully destroyed.' }
